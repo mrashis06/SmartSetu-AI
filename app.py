@@ -147,7 +147,7 @@ chart_type = st.selectbox("Select Chart Type:", ["Bar Chart", "Scatter Plot"])
 fig_width, fig_height, rotation = (12, 6, 45)
 
 if chart_type == "Bar Chart":
-    top_n = st.slider("Select number of vendors", 6, len(score_df), 12, step=5)
+    top_n = st.slider("Select number of vendors", 6, len(score_df), 12, step=2)
     top_df = score_df.sort_values("Credit Score", ascending=False).head(top_n)
     fig, ax = plt.subplots(figsize=(max(10, top_n * 0.6), fig_height))
     x = range(len(top_df))
