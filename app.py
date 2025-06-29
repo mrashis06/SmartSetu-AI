@@ -98,7 +98,9 @@ st.dataframe(score_df, use_container_width=True)
 # --- Output Section ---
 st.markdown(f"##### Loan Report for **{selected_vendor}**")
 
+st.markdown('<div class="loan-box">', unsafe_allow_html=True)
 st.markdown("### Loan Eligibility & Repayment Details")
+st.markdown('</div>', unsafe_allow_html=True)
 credit = selected_row["Credit Score"]
 risk = selected_row["Risk Score"]
 
