@@ -79,3 +79,17 @@ button[kind="primary"]:hover {
         padding: 1rem;
     }
 }
+.logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.logo-container img {
+    transition: transform 0.3s ease;
+}
+
+.logo-container img:hover {
+    transform: scale(1.05);
+}
+
