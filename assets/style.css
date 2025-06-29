@@ -14,12 +14,25 @@ body {
     margin-bottom: 20px;
 }
 
-/* Sidebar customization */
-section[data-testid="stSidebar"] {
-    background-color: #f0f4f8;
-    padding: 20px 15px;
-    border-right: 1px solid #ddd;
+/*  Stronger Sidebar Customization */
+[data-testid="stSidebar"] {
+    background-color: #1e1e1e !important; /* Dark background */
+    color: #f1f1f1 !important;           /* Light text */
+    padding: 20px;
 }
+
+[data-testid="stSidebar"] .stSelectbox, 
+[data-testid="stSidebar"] .stMetric, 
+[data-testid="stSidebar"] button {
+    background-color: #2c2c2c !important;
+    color: #ffffff !important;
+}
+
+/* Optional: Metric title visibility */
+.stMetricLabel {
+    color: #ccc !important;
+}
+
 
 /* Title */
 h1, h2, h3 {
