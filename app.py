@@ -11,20 +11,27 @@ from charts import draw_bar_chart, draw_scatter_plot
 SHEET_KEY = "1ccQAGRSCcJbJijorbBzSwU-wx60Ftf-2lzayKzCZQRw"
 st.set_page_config(page_title="SmartSetu-AI", layout="wide")
 
-# --- Theme Toggle --- 🔥
+# --- Theme Toggle --- 
 theme = st.sidebar.radio(" Choose Theme", ["Light", "Dark"], index=0)
+
+def clear_old_styles():
+    # Reset any old theme style tags
+    st.markdown("""
+        <style>
+        body, [data-testid="stAppViewContainer"], [data-testid="stSidebar"], .stMetric, .stSelectbox {
+            all: unset !important;
+        }
+        </style>
+    """, unsafe_allow_html=True)
 
 def load_theme_css(theme):
     path = f"assets/style_{theme.lower()}.css"
     with open(path) as f:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
+# Clear old theme and apply new one
+clear_old_styles()
 load_theme_css(theme)
-
-# --- Header ---
-with open("templates/header.html", "r") as f:
-    header_html = f.read()
-st.markdown(header_html, unsafe_allow_html=True)
 
 # Fetch vendor data
 df = fetch_vendor_data(SHEET_KEY)
