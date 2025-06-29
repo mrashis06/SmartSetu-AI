@@ -8,15 +8,17 @@ from calculator import calculate_credit_score, calculate_risk_score, get_risk_le
 SHEET_KEY = "1ccQAGRSCcJbJijorbBzSwU-wx60Ftf-2lzayKzCZQRw"
 st.set_page_config(page_title="SmartSetu-AI", layout="wide")
 
-# Logo
-st.markdown(
-    """
-    <div style="text-align: center;">
-        <img src="https://raw.githubusercontent.com/mrashis06/SmartSetu-AI/main/assets/logo.png" width="250">
-    </div>
-    """,
-    unsafe_allow_html=True
-)
+# Load custom CSS
+def local_css(file_name):
+    with open(file_name) as f:
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
+local_css("assets/style.css")
+
+# Load custom header
+with open("templates/header.html", "r") as f:
+    header_html = f.read()
+st.markdown(header_html, unsafe_allow_html=True)
 
 st.title("SmartSetu-AI - Vendor Credit & Risk Scoring Dashboard")
 
