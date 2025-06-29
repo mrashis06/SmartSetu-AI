@@ -3,6 +3,9 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from data_fetch import fetch_vendor_data
 from calculator import calculate_credit_score, calculate_risk_score, get_risk_level
+from loan import determine_loan_offer, calculate_emi
+from charts import draw_bar_chart, draw_scatter_plot
+
 
 # Google Sheet Key
 SHEET_KEY = "1ccQAGRSCcJbJijorbBzSwU-wx60Ftf-2lzayKzCZQRw"
@@ -99,22 +102,8 @@ st.markdown("### Loan Eligibility & Repayment Details")
 credit = selected_row["Credit Score"]
 risk = selected_row["Risk Score"]
 
-# Loan Eligibility Logic
-if credit >= 80:
-    loan_amount = 100000
-    interest_rate = 4
-elif credit >= 60:
-    loan_amount = 50000
-    interest_rate = 6
-elif credit >= 40:
-    loan_amount = 20000
-    interest_rate = 8
-elif credit >= 30:
-    loan_amount = 10000
-    interest_rate = 10
-else:
-    loan_amount = 0
-    interest_rate = 0
+#loan eligibilty
+loan_amount, interest_rate = determine_loan_offer(credit)
 
 # EMI Calculator
 if loan_amount > 0:
@@ -129,8 +118,7 @@ if loan_amount > 0:
     custom_months = st.slider("**Select Repayment Duration (in months)**", 6, 24, value=12)
 
     # Calculate total repayment and EMI
-    total_repayment = custom_loan + (custom_loan * interest_rate * custom_months / (12 * 100))
-    emi = round(total_repayment / custom_months, 2)
+    emi, total_repayment = calculate_emi(custom_loan, custom_months, interest_rate)
 
     st.markdown(f"""
     -**Loan Amount:** ₹{custom_loan:,}  
@@ -147,29 +135,6 @@ else:
 st.subheader(" Visualize Scores")
 chart_type = st.selectbox("Select Chart Type:", ["Bar Chart", "Scatter Plot"])
 fig_width, fig_height, rotation = (12, 6, 45)
-
-if chart_type == "Bar Chart":
-    top_n = st.slider("Select number of vendors", 6, len(score_df), 12, step=2)
-    top_df = score_df.sort_values("Credit Score", ascending=False).head(top_n)
-    fig, ax = plt.subplots(figsize=(max(10, top_n * 0.6), fig_height))
-    x = range(len(top_df))
-    bar_width = 0.35
-    ax.bar([i - 0.2 for i in x], top_df["Credit Score"], width=bar_width, label="Credit", color="royalblue")
-    ax.bar([i + 0.2 for i in x], top_df["Risk Score"], width=bar_width, label="Risk", color="salmon")
-    ax.set_xticks(x)
-    ax.set_xticklabels(top_df["Vendor"], rotation=rotation)
-    ax.legend()
-    st.pyplot(fig)
-
-elif chart_type == "Scatter Plot":
-    fig, ax = plt.subplots(figsize=(fig_width, fig_height))
-    ax.scatter(score_df["Credit Score"], score_df["Risk Score"], c="purple", s=100)
-    for i, row in score_df.iterrows():
-        ax.text(row["Credit Score"] + 0.5, row["Risk Score"] + 0.5, row["Vendor"], fontsize=8)
-    ax.set_xlabel("Credit Score")
-    ax.set_ylabel("Risk Score")
-    ax.set_title("Credit Score vs Risk Score")
-    st.pyplot(fig)
 
 # --- Full CSV ---
 st.subheader(" Download All Vendor Scores")
