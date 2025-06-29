@@ -16,14 +16,20 @@ def local_css(file_name):
     with open(file_name) as f:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
-local_css("assets/style.css")
+# --- Theme Toggle --- 🔥
+theme = st.sidebar.radio(" Choose Theme", ["Light", "Dark"], index=0)
 
-# Load custom header
+def load_theme_css(theme):
+    path = f"assets/style_{theme.lower()}.css"
+    with open(path) as f:
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
+load_theme_css(theme)
+
+# --- Header ---
 with open("templates/header.html", "r") as f:
     header_html = f.read()
 st.markdown(header_html, unsafe_allow_html=True)
-
-st.title("SmartSetu-AI - Vendor Credit & Risk Scoring Dashboard")
 
 # Fetch vendor data
 df = fetch_vendor_data(SHEET_KEY)
