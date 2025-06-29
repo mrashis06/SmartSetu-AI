@@ -134,9 +134,18 @@ else:
     st.error(" Not eligible for a loan based on current credit score.")
 
 # --- Charts ---
-st.subheader(" Visualize Scores")
-chart_type = st.selectbox("Select Chart Type:", ["Bar Chart", "Scatter Plot"])
-fig_width, fig_height, rotation = (12, 6, 45)
+
+def show_charts(score_df):
+    st.subheader("Visualize Scores")
+    chart_type = st.selectbox("Select Chart Type:", ["Bar Chart", "Scatter Plot"])
+    
+    if chart_type == "Bar Chart":
+        top_n = st.slider("Select number of vendors", 6, len(score_df), 12, step=2)
+        fig = draw_bar_chart(score_df, top_n)
+        st.pyplot(fig)
+    elif chart_type == "Scatter Plot":
+        fig = draw_scatter_plot(score_df)
+        st.pyplot(fig)
 
 # --- Full CSV ---
 st.subheader(" Download All Vendor Scores")
