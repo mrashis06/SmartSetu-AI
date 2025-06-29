@@ -112,16 +112,9 @@ if loan_amount > 0:
     st.success(f" **Eligible for a loan of ₹{loan_amount:,} at {interest_rate}% interest per year.**")
 
     st.markdown("###  Simulate Your Loan Repayment")
-
-    # Vendor selects loan amount (within limit)
     custom_loan = st.slider("**Select Loan Amount (₹)**", 1000, loan_amount, step=1000)
-
-    # Vendor selects repayment period
     custom_months = st.slider("**Select Repayment Duration (in months)**", 6, 24, value=12)
-
-    # Calculate total repayment and EMI
     emi, total_repayment = calculate_emi(custom_loan, custom_months, interest_rate)
-
     st.markdown(f"""
     -**Loan Amount:** ₹{custom_loan:,}  
     -**Interest Rate:** {interest_rate}%  
@@ -129,21 +122,20 @@ if loan_amount > 0:
     -**Monthly EMI:** ₹{emi:,}  
     -**Total Repayment:** ₹{round(total_repayment):,}
     """)
-
 else:
     st.error(" Not eligible for a loan based on current credit score.")
 
-# --- Charts ---
-    st.subheader("Visualize Scores")
-    chart_type = st.selectbox("Select Chart Type:", ["Bar Chart", "Scatter Plot"])
-    
-    if chart_type == "Bar Chart":
-        top_n = st.slider("Select number of vendors", 6, len(score_df), 12, step=2)
-        fig = draw_bar_chart(score_df, top_n)
-        st.pyplot(fig)
-    elif chart_type == "Scatter Plot":
-        fig = draw_scatter_plot(score_df)
-        st.pyplot(fig)
+# Always visible for all vendors
+st.subheader("Visualize Scores")
+chart_type = st.selectbox("Select Chart Type:", ["Bar Chart", "Scatter Plot"])
+
+if chart_type == "Bar Chart":
+    top_n = st.slider("Select number of vendors", 6, len(score_df), 12, step=2)
+    fig = draw_bar_chart(score_df, top_n)
+    st.pyplot(fig)
+elif chart_type == "Scatter Plot":
+    fig = draw_scatter_plot(score_df)
+    st.pyplot(fig)
 
 # --- Full CSV ---
 st.subheader(" Download All Vendor Scores")
