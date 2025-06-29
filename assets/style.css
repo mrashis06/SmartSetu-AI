@@ -164,5 +164,26 @@ button[kind="primary"]:hover {
     box-shadow: 0 0 10px rgba(0, 123, 255, 0.6);
     transform: scale(1.01);
 }
+.logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.logo-img {
+    width: 160px;               /* You can increase to 200px or more */
+    height: 160px;
+    object-fit: cover;
+    border-radius: 50%;         /* Makes it circular */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);  /* Soft shadow */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.logo-img:hover {
+    transform: scale(1.08);
+    box-shadow: 0 6px 25px rgba(0, 123, 255, 0.3); /* Glowy blue shadow on hover */
+}
+
 
 
