@@ -134,8 +134,6 @@ else:
     st.error(" Not eligible for a loan based on current credit score.")
 
 # --- Charts ---
-
-def show_charts(score_df):
     st.subheader("Visualize Scores")
     chart_type = st.selectbox("Select Chart Type:", ["Bar Chart", "Scatter Plot"])
     
