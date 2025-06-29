@@ -92,8 +92,13 @@ csv_data = vendor_row_df.to_csv(index=False).encode('utf-8')
 st.sidebar.download_button("Download My Report", data=csv_data, file_name=f"{selected_vendor}_report.csv", mime="text/csv")
 
 # --- Main: All Vendors Table ---
-st.subheader(" All Vendor Scores")
+st.markdown('<div class="card">', unsafe_allow_html=True)
+
+st.subheader("All Vendor Scores")
 st.dataframe(score_df, use_container_width=True)
+
+st.markdown('</div>', unsafe_allow_html=True)
+
 
 # --- Output Section ---
 st.markdown(f"##### Loan Report for **{selected_vendor}**")
