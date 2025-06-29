@@ -11,11 +11,6 @@ from charts import draw_bar_chart, draw_scatter_plot
 SHEET_KEY = "1ccQAGRSCcJbJijorbBzSwU-wx60Ftf-2lzayKzCZQRw"
 st.set_page_config(page_title="SmartSetu-AI", layout="wide")
 
-# Load custom CSS
-def local_css(file_name):
-    with open(file_name) as f:
-        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
-
 # --- Theme Toggle --- 🔥
 theme = st.sidebar.radio(" Choose Theme", ["Light", "Dark"], index=0)
 
