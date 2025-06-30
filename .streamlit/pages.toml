@@ -1,0 +1,19 @@
+[[pages]]
+path = "Home.py"
+name = "Home"
+
+[[pages]]
+path = "pages/Dashboard.py"
+name = "Dashboard"
+
+[[pages]]
+path = "pages/Credit_Predictor.py"
+name = "Credit Score"
+
+[[pages]]
+path = "pages/Charts.py"
+name = "Charts"
+
+[[pages]]
+path = "pages/Govt_Schemes.py"
+name = "Govt Schemes"
