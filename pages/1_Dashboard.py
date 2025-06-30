@@ -1,4 +1,4 @@
-mport streamlit as st
+import streamlit as st
 import pandas as pd
 from data_fetch import fetch_vendor_data
 from calculator import calculate_credit_score, calculate_risk_score, get_risk_level
