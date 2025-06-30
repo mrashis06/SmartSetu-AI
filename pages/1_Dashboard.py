@@ -1,78 +1,108 @@
-import streamlit as st
+mport streamlit as st
 import pandas as pd
-from loan import determine_loan_offer, calculate_emi
 from data_fetch import fetch_vendor_data
 from calculator import calculate_credit_score, calculate_risk_score, get_risk_level
 
-# --- Setup ---
-st.set_page_config(page_title="Credit Score Predictor", layout="wide")
+# --- Page Config ---
+st.set_page_config(page_title="Dashboard | SmartSetu-AI", layout="wide")
 
-# Load CSS and Header
-with open("assets/style.css") as f:
-    st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
-with open("templates/header.html") as f:
+# --- Load CSS ---
+def local_css(path):
+    with open(path) as f:
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
+local_css("assets/style.css")
+
+# --- Load Header ---
+with open("templates/header.html", "r") as f:
     st.markdown(f.read(), unsafe_allow_html=True)
 
-st.title("Credit Score Predictor")
+# --- Title ---
+st.title(" Vendor Dashboard")
+st.markdown("View all vendors and individual credit + risk scores")
 
-# --- Fetch & Process Data ---
+# --- Fetch Vendor Data ---
 SHEET_KEY = "1ccQAGRSCcJbJijorbBzSwU-wx60Ftf-2lzayKzCZQRw"
 df = fetch_vendor_data(SHEET_KEY)
 
 if df.empty:
-    st.warning("No vendor data available.")
+    st.warning("No vendor data found in the Google Sheet.")
     st.stop()
 
-# --- Vendor Selection ---
-st.sidebar.title("Vendor Selection")
-selected_vendor = st.sidebar.selectbox("Choose a Vendor:", df["Name of Vendor"].tolist())
-row = df[df["Name of Vendor"] == selected_vendor].iloc[0]
+# --- Compute Scores ---
+scores = []
+max_txn = df["Monthly Transactions"].max()
 
-# --- Score Calculation ---
-transactions = float(row['Monthly Transactions'])
-consistency = float(row['Consistency Score'])
-supplier_verified = row['Supplier Verified']
-testimonials = float(row['Customer Testimonial'])
-income1 = float(row['Monthly Income - Month 1'])
-income2 = float(row['Monthly Income - Month 2'])
-income3 = float(row['Monthly Income - Month 3'])
-avg_income = (income1 + income2 + income3) / 3
-expenses = [
-    float(row['Spending Variance - Month 1']),
-    float(row['Spending Variance - Month 2']),
-    float(row['Spending Variance - Month 3']),
-]
+for index, row in df.iterrows():
+    try:
+        credit = calculate_credit_score(
+            float(row['Monthly Transactions']),
+            float(row['Consistency Score']),
+            row['Supplier Verified'],
+            float(row['Customer Testimonial']),
+            max_txn
+        )
 
-max_txn = df['Monthly Transactions'].max()
-credit_score = calculate_credit_score(transactions, consistency, supplier_verified, testimonials, max_txn)
-risk_score = calculate_risk_score(expenses, avg_income)
-risk_level = get_risk_level(risk_score)
+        income = sum([
+            float(row['Monthly Income - Month 1']),
+            float(row['Monthly Income - Month 2']),
+            float(row['Monthly Income - Month 3'])
+        ]) / 3
 
-# --- Display Scores ---
-st.markdown("### Vendor Credit Evaluation")
-st.metric("Credit Score", credit_score)
-st.metric("Risk Score", risk_score)
-st.metric("Risk Level", risk_level)
+        expenses = [
+            float(row['Spending Variance - Month 1']),
+            float(row['Spending Variance - Month 2']),
+            float(row['Spending Variance - Month 3'])
+        ]
 
-# --- Loan Eligibility ---
-st.markdown("### Loan Eligibility & Repayment Details")
-loan_amount, interest_rate = determine_loan_offer(credit_score)
+        risk = calculate_risk_score(expenses, income)
+        level = get_risk_level(risk)
 
-if loan_amount > 0:
-    st.success(f"Eligible for loan of ₹{loan_amount:,} at {interest_rate}% interest")
+        scores.append({
+            "Vendor": row.get("Name of Vendor", f"Vendor {index+1}"),
+            "Credit Score": credit,
+            "Risk Score": risk,
+            "Risk Level": level
+        })
 
-    st.markdown("#### Simulate Your Loan Repayment")
-    custom_loan = st.slider("Select Loan Amount (₹)", 1000, loan_amount, step=1000)
-    custom_months = st.slider("Select Duration (Months)", 6, 24, value=12)
+    except Exception as e:
+        scores.append({
+            "Vendor": row.get("Name of Vendor", f"Vendor {index+1}"),
+            "Credit Score": "Error",
+            "Risk Score": "Error",
+            "Risk Level": f"{type(e).__name__}: {str(e)}"
+        })
 
-    emi, total = calculate_emi(custom_loan, custom_months, interest_rate)
+score_df = pd.DataFrame(scores)
 
-    st.markdown(f"""
-    - **Loan Amount:** ₹{custom_loan:,}
-    - **Interest Rate:** {interest_rate}%
-    - **Duration:** {custom_months} months
-    - **Monthly EMI:** ₹{emi:,}
-    - **Total Repayment:** ₹{round(total):,}
-    """)
-else:
-    st.error("Not eligible for a loan based on the credit score.")
+# --- Sidebar ---
+st.sidebar.title(" Vendor Selector")
+selected_vendor = st.sidebar.selectbox("Choose a Vendor:", score_df["Vendor"].tolist())
+selected_row = score_df[score_df["Vendor"] == selected_vendor].iloc[0]
+
+st.sidebar.markdown("---")
+st.sidebar.markdown("### Vendor Scores")
+st.sidebar.metric("Credit Score", selected_row["Credit Score"])
+st.sidebar.metric("Risk Score", selected_row["Risk Score"])
+st.sidebar.metric("Risk Level", selected_row["Risk Level"])
+
+# --- CSV Download for Selected Vendor ---
+vendor_csv = pd.DataFrame([selected_row]).to_csv(index=False).encode("utf-8")
+st.sidebar.download_button(
+    label=" Download Report",
+    data=vendor_csv,
+    file_name=f"{selected_vendor}_report.csv",
+    mime="text/csv"
+)
+
+# --- Main Table ---
+st.subheader(" All Vendor Scores")
+st.dataframe(score_df, use_container_width=True)
+
+# --- Full Download ---
+st.download_button(
+    " Download Full CSV",
+    data=score_df.to_csv(index=False).encode("utf-8"),
+    file_name="all_vendor_scores.csv",
+    mime="text/csv"
+)
