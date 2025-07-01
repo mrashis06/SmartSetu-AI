@@ -33,13 +33,19 @@ typing_animation = """
   font-family: monospace;
   white-space: nowrap;
   overflow: hidden;
-  /* Removed border-right for no blinking cursor */
-  width: 22ch;
-  animation: typing 4s steps(22) forwards; /* 'forwards' to keep full text visible after animation */
+  width: min(90vw, 22ch);
+  animation: typing 4s steps(22) forwards;
   font-size: 36px;
   color: white;
   margin: 20px auto 40px auto;
   text-align: center;
+}
+
+@media (max-width: 480px) {
+  .typing-demo {
+    font-size: 24px;
+    width: 90vw;
+  }
 }
 </style>
 
