@@ -14,13 +14,38 @@ local_css("assets/style.css")
 with open("templates/header.html", "r") as f:
     st.markdown(f.read(), unsafe_allow_html=True)
 
-# --- Centered Logo & Title ---
+# --- Centered Logo ONLY ---
 st.markdown("""
 <div style='text-align: center; margin-top: 30px;'>
     <img src='https://raw.githubusercontent.com/mrashis06/SmartSetu-AI/main/assets/logo.png' class='center-logo'>
-    <h1 style='color: white; margin-top: 10px;'>Welcome to SmartSetu-AI</h1>
 </div>
 """, unsafe_allow_html=True)
+
+# --- Typing Animation as the Heading ---
+typing_animation = """
+<style>
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+.typing-demo {
+  font-family: monospace;
+  white-space: nowrap;
+  overflow: hidden;
+  /* Removed border-right for no blinking cursor */
+  width: 22ch;
+  animation: typing 4s steps(22) forwards; /* 'forwards' to keep full text visible after animation */
+  font-size: 36px;
+  color: white;
+  margin: 20px auto 40px auto;
+  text-align: center;
+}
+</style>
+
+<div class="typing-demo">Welcome to SmartSetu-AI</div>
+"""
+st.markdown(typing_animation, unsafe_allow_html=True)
 
 
 # --- Description with Icons ---
@@ -42,4 +67,3 @@ st.markdown("""
     </ul>
 </div>
 """, unsafe_allow_html=True)
-
