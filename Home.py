@@ -25,14 +25,21 @@ st.markdown("""
 
 # --- Description with Icons ---
 st.markdown("""
-<div style='text-align: center; font-size: 18px; margin-top: 30px; color: #ccc;'>
-    SmartSetu-AI is a financial intelligence tool for assessing vendor creditworthiness and financial risk.
+<div style='text-align: center; font-size: 18px; margin-top: 30px; color: #ccc; max-width: 700px; margin-left: auto; margin-right: auto; line-height: 1.6;'>
+    <strong>SmartSetu-AI</strong> is an innovative financial intelligence platform dedicated to empowering street vendors and small entrepreneurs across India. 
+    <br><br>
+    Our mission is to revolutionize how financial inclusion is achieved by providing smart, data-driven credit assessment and risk analysis — helping vendors unlock easier access to loans and grow their businesses sustainably.
+    <br><br>
+    Through intuitive dashboards, accurate loan eligibility predictions, and insightful visualizations, we aim to bridge the gap between informal vendors and formal financial systems.
+    <br><br>
+    Join us on this journey to create a smarter, fairer lending ecosystem — where every hardworking vendor gets the support they deserve.
     <br><br>
     <ul style='text-align: left; display: inline-block; list-style: none; padding: 0; font-size: 18px;'>
-        <li>📊 <strong>View Vendor Dashboard</strong></li>
-        <li>🔍 <strong>Predict Loan Eligibility</strong></li>
-        <li>📈 <strong>Visualize Scores</strong></li>
-        <li>🏛 <strong>Explore Govt Schemes</strong></li>
+        <li>📊 <strong>Explore the Vendor Dashboard</strong> — Real-time financial insights at your fingertips</li>
+        <li>🔍 <strong>Predict Loan Eligibility</strong> — AI-powered assessments for accurate credit decisions</li>
+        <li>📈 <strong>Visualize Scores</strong> — Easy-to-understand risk and credit metrics</li>
+        <li>🏛 <strong>Discover Govt Schemes</strong> — Learn about financial aid and support available</li>
     </ul>
 </div>
 """, unsafe_allow_html=True)
+
