@@ -191,3 +191,55 @@ button[kind="primary"]:hover {
 ::-webkit-scrollbar-thumb:hover {
     background: #aaa;
 }
+@media screen and (max-width: 480px) {
+  .nav-title {
+    font-size: 1.2rem;
+  }
+  .chart-header {
+    font-size: 1.2rem;
+  }
+  .stMetricValue {
+    font-size: 20px !important;
+  }
+  .typing-demo {
+    font-size: 20px;
+    width: 18ch;
+  }
+  .center-logo {
+    width: 100px;
+    height: 100px;
+  }
+  button, input, select, textarea {
+    width: 100% !important;
+    box-sizing: border-box;
+  }
+}
+
+/* Flex layout stack on mobile */
+.flex-row {
+  display: flex;
+  gap: 20px;
+}
+@media screen and (max-width: 768px) {
+  .flex-row {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+/* Responsive tables with horizontal scroll */
+table {
+  width: 100%;
+  display: block;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Increase touch targets */
+button, a {
+  padding: 10px 15px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
