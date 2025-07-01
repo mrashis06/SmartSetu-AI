@@ -214,7 +214,37 @@ button[kind="primary"]:hover {
     box-sizing: border-box;
   }
 }
+/* Container for main content */
+.main-container {
+  max-width: 900px;
+  padding: 0 15px;
+  margin: 0 auto;
+}
 
+/* Smaller fonts on small phones */
+@media screen and (max-width: 480px) {
+  .nav-title {
+    font-size: 1.2rem;
+  }
+  .chart-header {
+    font-size: 1.2rem;
+  }
+  .stMetricValue {
+    font-size: 20px !important;
+  }
+  .typing-demo {
+    font-size: 20px;
+    width: 18ch;
+  }
+  .center-logo {
+    width: 100px;
+    height: 100px;
+  }
+  button, input, select, textarea {
+    width: 100% !important;
+    box-sizing: border-box;
+  }
+}
 /* Flex layout stack on mobile */
 .flex-row {
   display: flex;
