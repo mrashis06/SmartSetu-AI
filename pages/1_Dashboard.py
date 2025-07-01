@@ -18,7 +18,7 @@ with open("templates/header.html", "r") as f:
     st.markdown(f.read(), unsafe_allow_html=True)
 
 # --- Title ---
-st.title(" Vendor Dashboard")
+st.title("Vendor Dashboard")
 st.markdown("View all vendors and individual credit + risk scores")
 
 # --- Fetch Vendor Data ---
@@ -76,7 +76,7 @@ for index, row in df.iterrows():
 score_df = pd.DataFrame(scores)
 
 # --- Sidebar ---
-st.sidebar.title(" Vendor Selector")
+st.sidebar.title("Vendor Selector")
 selected_vendor = st.sidebar.selectbox("Choose a Vendor:", score_df["Vendor"].tolist())
 selected_row = score_df[score_df["Vendor"] == selected_vendor].iloc[0]
 
@@ -89,19 +89,19 @@ st.sidebar.metric("Risk Level", selected_row["Risk Level"])
 # --- CSV Download for Selected Vendor ---
 vendor_csv = pd.DataFrame([selected_row]).to_csv(index=False).encode("utf-8")
 st.sidebar.download_button(
-    label=" Download Report",
+    label="Download Report",
     data=vendor_csv,
     file_name=f"{selected_vendor}_report.csv",
     mime="text/csv"
 )
 
 # --- Main Table ---
-st.subheader(" All Vendor Scores")
+st.subheader("All Vendor Scores")
 st.dataframe(score_df, use_container_width=True)
 
 # --- Full Download ---
 st.download_button(
-    " Download Full CSV",
+    "Download Full CSV",
     data=score_df.to_csv(index=False).encode("utf-8"),
     file_name="all_vendor_scores.csv",
     mime="text/csv"
