@@ -6,6 +6,12 @@ import pandas as pd
 
 st.set_page_config(page_title="Charts & Visualizations", layout="wide")
 
+# Load CSS and Header
+with open("assets/style.css") as f:
+    st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+with open("templates/header.html") as f:
+    st.markdown(f.read(), unsafe_allow_html=True)
+
 with st.container():
     st.title(" SmartSetu-AI Visualizations")
 
