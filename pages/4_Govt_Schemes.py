@@ -6,12 +6,11 @@ from govt_scheme import get_central_schemes, get_state_scheme
 # --- Config ---
 st.set_page_config(page_title="Govt Schemes | SmartSetu-AI", layout="wide")
 
-# --- Optional: Local CSS ---
-def local_css(file_name):
-    with open(file_name) as f:
-        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
-
-local_css("assets/style.css")
+# Load CSS and Header
+with open("assets/style.css") as f:
+    st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+with open("templates/header.html") as f:
+    st.markdown(f.read(), unsafe_allow_html=True)
 
 # --- Page Title ---
 st.markdown("<h2 style='text-align: center; color: white;'>🏛 Government Financial Schemes for Street Vendors</h2>", unsafe_allow_html=True)
