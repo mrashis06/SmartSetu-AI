@@ -1,275 +1,254 @@
-/* Import Google Font */
+/* === GOOGLE FONT === */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;600&display=swap');
 
-/* === GENERAL BODY === */
 body {
-    font-family: 'Roboto', sans-serif;
-    background-color: #f9fafc;
-    color: #333;
+  font-family: 'Roboto', sans-serif;
+  background-color: #f9fafc;
+  color: #333;
+  margin: 0;
 }
 
-/* === SIDEBAR DARK MODE === */
+/* === SIDEBAR DARK THEME === */
 [data-testid="stSidebar"] {
-    background-color: #1e1e1e !important;
-    color: #f1f1f1 !important;
-    padding: 20px;
+  background-color: #1e1e1e !important;
+  color: #f1f1f1 !important;
+  padding: 20px;
 }
-
 [data-testid="stSidebar"] label {
-    color: #ddd !important;
-    margin-bottom: 6px;
+  color: #ddd !important;
 }
-
 [data-testid="stSidebar"] .stSelectbox,
 [data-testid="stSidebar"] .stMetric,
 [data-testid="stSidebar"] button {
-    background-color: rgba(50, 50, 50, 0.4) !important;
-    color: #ffffff !important;
-    border-radius: 10px;
-    padding: 8px;
-    margin-bottom: 12px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  background-color: rgba(50, 50, 50, 0.4) !important;
+  color: white !important;
+  border-radius: 10px;
+  padding: 8px;
+  margin-bottom: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 /* === NAVBAR === */
 .navbar {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #1e1e1e;
-    padding: 10px 30px;
-    border-radius: 12px;
-    margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #1e1e1e;
+  padding: 10px 30px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
 }
-
 .navbar-left {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
-
 .logo-img {
-    width: 50px;
-    height: 50px;
-    object-fit: cover;
-    border-radius: 50%;
-    box-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 50%;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
 }
-
 .nav-title {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #4DC4D2;
-    white-space: nowrap;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #4DC4D2;
+  white-space: nowrap;
 }
-
 .navbar-right {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
+  display: flex;
+  gap: 20px;
 }
-
 .navbar-right a {
-    color: #ccc;
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.3s ease;
+  color: #ccc;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
 }
-
 .navbar-right a:hover {
-    color: #fff;
-    text-decoration: underline;
+  color: #fff;
+  text-decoration: underline;
 }
 
-/* === RESPONSIVE NAV === */
-@media screen and (max-width: 768px) {
-    .navbar {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 12px;
-    }
-
-    .navbar-right {
-        margin-top: 10px;
-        gap: 10px;
-    }
-
-    .navbar-right a {
-        display: block;
-        margin: 5px 0;
-    }
-}
-
-/* === LOGO CENTERED BELOW NAV === */
+/* === CENTER LOGO === */
 .center-logo {
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
-    border-radius: 50%;
-    box-shadow: 0 4px 20px rgba(255, 255, 255, 0.1);
-    margin-bottom: 10px;
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 50%;
+  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.1);
+  margin-bottom: 10px;
 }
 
-/* === METRICS + WIDGETS === */
+/* === METRICS === */
 .stMetricLabel {
-    color: #ccc !important;
-    margin-bottom: 4px;
+  color: #ccc !important;
+  margin-bottom: 4px;
 }
-
 .stMetricValue {
-    font-size: 24px;
-    font-weight: 600;
-    color: #fff !important;
+  font-size: 24px;
+  font-weight: 600;
+  color: white !important;
 }
 
-/* === TABLES === */
+/* === TABLE STYLING === */
 table {
-    font-size: 14px;
-    border-collapse: collapse;
-    width: 100%;
+  font-size: 14px;
+  border-collapse: collapse;
+  width: 100%;
+  display: block;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
-
 th, td {
-    padding: 10px;
-    text-align: center;
+  padding: 10px;
+  text-align: center;
 }
-
 thead {
-    background-color: #e6f0ff;
+  background-color: #e6f0ff;
 }
 
-/* === CARDS === */
+/* === CARD COMPONENT === */
 .card {
-    background-color: #fff;
-    padding: 1.5rem;
-    margin: 1rem 0;
-    border-radius: 12px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  background-color: white;
+  padding: 1.5rem;
+  margin: 1rem 0;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
-/* === CHART HEADINGS === */
+/* === CHART HEADERS === */
 .chart-header {
-    font-size: 1.6rem;
-    font-weight: bold;
-    margin-top: 2rem;
-    margin-bottom: 1rem;
-    color: #333;
-    border-left: 5px solid #007bff;
-    padding-left: 10px;
-}
-
-@media screen and (max-width: 768px) {
-    .card, .chart-header {
-        margin: 0.5rem 0.2rem;
-        padding: 1rem;
-    }
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #333;
+  border-left: 5px solid #007bff;
+  padding-left: 10px;
+  margin: 2rem 0 1rem;
 }
 
 /* === DOWNLOAD BUTTON === */
 button[kind="primary"] {
-    background-color: #007bff !important;
-    color: white !important;
-    font-weight: 600;
+  background-color: #007bff !important;
+  color: white !important;
+  font-weight: 600;
 }
-
 button[kind="primary"]:hover {
-    box-shadow: 0 0 10px rgba(0, 123, 255, 0.6);
-    transform: scale(1.01);
+  box-shadow: 0 0 10px rgba(0, 123, 255, 0.6);
+  transform: scale(1.01);
 }
 
 /* === SCROLLBAR === */
 ::-webkit-scrollbar {
-    width: 8px;
+  width: 8px;
 }
-
 ::-webkit-scrollbar-thumb {
-    background: #ccc;
-    border-radius: 10px;
+  background: #ccc;
+  border-radius: 10px;
 }
-
 ::-webkit-scrollbar-thumb:hover {
-    background: #aaa;
-}
-@media screen and (max-width: 480px) {
-  .nav-title {
-    font-size: 1.2rem;
-  }
-  .chart-header {
-    font-size: 1.2rem;
-  }
-  .stMetricValue {
-    font-size: 20px !important;
-  }
-  .typing-demo {
-    font-size: 20px;
-    width: 18ch;
-  }
-  .center-logo {
-    width: 100px;
-    height: 100px;
-  }
-  button, input, select, textarea {
-    width: 100% !important;
-    box-sizing: border-box;
-  }
-}
-/* Container for main content */
-.main-container {
-  max-width: 900px;
-  padding: 0 15px;
-  margin: 0 auto;
+  background: #aaa;
 }
 
-/* Smaller fonts on small phones */
-@media screen and (max-width: 480px) {
-  .nav-title {
-    font-size: 1.2rem;
-  }
-  .chart-header {
-    font-size: 1.2rem;
-  }
-  .stMetricValue {
-    font-size: 20px !important;
-  }
-  .typing-demo {
-    font-size: 20px;
-    width: 18ch;
-  }
-  .center-logo {
-    width: 100px;
-    height: 100px;
-  }
-  button, input, select, textarea {
-    width: 100% !important;
-    box-sizing: border-box;
-  }
-}
-/* Flex layout stack on mobile */
+/* === FLEX LAYOUT === */
 .flex-row {
   display: flex;
   gap: 20px;
 }
-@media screen and (max-width: 768px) {
+@media (max-width: 768px) {
   .flex-row {
     flex-direction: column;
     gap: 10px;
   }
 }
 
-/* Responsive tables with horizontal scroll */
-table {
-  width: 100%;
-  display: block;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
+/* === MAIN CONTAINER (FOR CENTERED LAYOUTS) === */
+.main-container {
+  max-width: 900px;
+  padding: 0 15px;
+  margin: 0 auto;
 }
 
-/* Increase touch targets */
-button, a {
-  padding: 10px 15px;
-  min-height: 44px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+/* === RESPONSIVE (PHONES & TABLETS) === */
+@media (max-width: 768px) {
+  .navbar {
+    display: flex;
+    flex-wrap: nowrap;           /* Keep everything in one line */
+    align-items: center;
+    padding: 10px 16px;
+    overflow-x: auto;            /* Enable horizontal scroll if overflow */
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .navbar-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;              /* Prevent shrinking of logo+title */
+    white-space: nowrap;         /* Prevent wrapping */
+  }
+
+  .nav-title {
+    font-size: 1.2rem;
+    white-space: nowrap;         /* Keep text on one line */
+  }
+
+  .navbar-right {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 12px;
+    margin-left: 16px;           /* Add space between logo/title and nav links */
+    flex-shrink: 0;              /* Prevent shrinking */
+    white-space: nowrap;         /* No wrapping */
+  }
+
+  .navbar-right a {
+    white-space: nowrap;
+    font-size: 14px;
+    padding: 6px 10px;
+    color: #ccc;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+  }
+
+  .navbar-right a:hover {
+    color: #fff;
+    text-decoration: underline;
+  }
+}
+
+
+
+@media (max-width: 480px) {
+  .nav-title {
+    font-size: 1.2rem;
+  }
+  .chart-header {
+    font-size: 1.2rem;
+  }
+  .stMetricValue {
+    font-size: 20px !important;
+  }
+  .typing-demo {
+    font-size: 20px;
+    width: 18ch;
+  }
+  .center-logo {
+    width: 100px;
+    height: 100px;
+  }
+  button, input, select, textarea {
+    width: 100% !important;
+    box-sizing: border-box;
+  }
+  .navbar-right {
+    gap: 6px;
+  }
+  .navbar-right a {
+    font-size: 14px;
+    padding: 6px 10px;
+  }
 }
