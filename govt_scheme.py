@@ -1,5 +1,3 @@
-# govt_scheme.py
-
 def get_central_schemes():
     """
     Returns a list of dictionaries with detailed info about central government
@@ -75,13 +73,16 @@ def get_state_scheme(state_name):
         "Madhya Pradesh": {
             "state": "Madhya Pradesh",
             "has_own_scheme": True,
-            "scheme_name": "Mukhyamantri Street Vendor Loan Yojana",
+            "scheme_name": "Mukhyamantri Gramin & Shahri Kamgar Setu",
             "description": (
-                "Offers an interest-free loan of ₹10,000 to registered street vendors. "
-                "The scheme is managed by municipal bodies and encourages repeat loans "
-                "upon timely repayment, supporting vendors’ financial sustainability."
+                "Madhya Pradesh offers two interest-free working capital loan schemes for street vendors:\n\n"
+                "• **Gramin Kamgar Setu (Rural)**: Provides ₹10,000 interest-free loans to rural vendors. "
+                "Implemented through the official portal kamgarsetu.mp.gov.in.\n\n"
+                "• **Shahri Kamgar Setu (Urban)**: Similar scheme for urban street vendors across MP.\n\n"
+                "In addition, Madhya Pradesh is one of the top-performing states under the central PM SVANidhi scheme, "
+                "with over 8.7 lakh vendors already benefitting from collateral-free working capital support."
             ),
-            "link": "https://urban.mp.gov.in/"
+            "link":"https://sarkariyojana.com/mp-gramin-kamgar-setu-portal-registrations/"
         },
         "Odisha": {
             "state": "Odisha",
@@ -93,7 +94,7 @@ def get_state_scheme(state_name):
                 "registered vendors. The state also facilitates vendor registration, training, "
                 "and vending infrastructure development."
             ),
-            "link": "https://sudawb.org/Program-Details/11"
+            "link": "https://sudaodisha.org/schemes_program.php?editId=13"
         },
         "West Bengal": {
             "state": "West Bengal",
@@ -105,7 +106,7 @@ def get_state_scheme(state_name):
                 "scheme, with over 1.8 lakh vendors benefitting. Vendor registration and vending "
                 "regulations are managed under the West Bengal Street Vendors (Protection) Rules, 2018."
             ),
-            "link": "https://sudawb.org/Program-Details/11"
+            "link": "https://pmsvanidhi.mohua.gov.in/"
         },
         "Bihar": {
             "state": "Bihar",
@@ -116,7 +117,7 @@ def get_state_scheme(state_name):
                 "the central PM SVANidhi scheme through urban local bodies, providing vendor "
                 "registration and awareness drives but no additional state-funded loan."
             ),
-            "link": "http://urban.bih.nic.in/"
+            "link": "https://pmsvanidhi.mohua.gov.in/"
         },
         "Uttar Pradesh": {
             "state": "Uttar Pradesh",
@@ -127,7 +128,7 @@ def get_state_scheme(state_name):
                 "The state supplements it with awareness campaigns, brand ambassadors, free health "
                 "camps, and vendor ID issuance. There is no separate state-funded financial scheme."
             ),
-            "link": "https://upurban.gov.in/"
+            "link": "https://pmsvanidhi.mohua.gov.in/"
         }
     }
 
