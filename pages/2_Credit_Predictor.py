@@ -1,5 +1,10 @@
 import streamlit as st
 import pandas as pd
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from color_utils import get_score_color, get_level_color
+
 from loan import determine_loan_offer, calculate_emi
 from data_fetch import fetch_vendor_data
 from calculator import calculate_credit_score, calculate_risk_score, get_risk_level
@@ -48,14 +53,30 @@ with st.container():
     risk_score = calculate_risk_score(expenses, avg_income)
     risk_level = get_risk_level(risk_score)
 
-    # Display Scores
-    st.subheader(" Vendor Credit Evaluation")
-    st.metric("Credit Score", credit_score)
-    st.metric("Risk Score", risk_score)
-    st.metric("Risk Level", risk_level)
+    # Display Scores with Colors
+    credit_color = get_score_color(credit_score)
+    risk_color = get_score_color(risk_score, kind="risk")
+    level_color = get_level_color(risk_level)
+
+    st.markdown("## Vendor Credit Evaluation")
+    st.markdown(f"""
+<h4>
+  <span style='font-size:16px;'>Credit Score:</span>
+  <span style='color:{credit_color}; font-size:20px; font-weight:bold;'>{credit_score}</span>
+</h4>
+<h4>
+  <span style='font-size:16px;'>Risk Score:</span>
+  <span style='color:{risk_color}; font-size:20px; font-weight:bold;'>{risk_score}</span>
+</h4>
+<h4>
+  <span style='font-size:16px;'>Risk Level:</span>
+  <span style='color:{level_color}; font-size:20px; font-weight:bold;'>{risk_level}</span>
+</h4>
+""", unsafe_allow_html=True)
+
 
     # Loan Eligibility
-    st.subheader(" Loan Eligibility & Repayment Details")
+    st.markdown("# Loan Eligibility & Repayment Details")
     loan_amount, interest_rate = determine_loan_offer(credit_score)
 
     if loan_amount > 0:
