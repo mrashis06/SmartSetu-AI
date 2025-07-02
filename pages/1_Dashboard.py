@@ -2,6 +2,11 @@ import streamlit as st
 import pandas as pd
 from data_fetch import fetch_vendor_data
 from calculator import calculate_credit_score, calculate_risk_score, get_risk_level
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from color_utils import get_score_color, get_level_color
+
 
 # --- Page Config ---
 st.set_page_config(page_title="Dashboard | SmartSetu-AI", layout="wide")
@@ -75,16 +80,44 @@ for index, row in df.iterrows():
 
 score_df = pd.DataFrame(scores)
 
-# --- Sidebar ---
-st.sidebar.title("Vendor Selector")
-selected_vendor = st.sidebar.selectbox("Choose a Vendor:", score_df["Vendor"].tolist())
+# --- Vendor Selection ---
+vendor_names = score_df["Vendor"].tolist()
+selected_vendor = st.sidebar.selectbox("Select Vendor", vendor_names)
 selected_row = score_df[score_df["Vendor"] == selected_vendor].iloc[0]
 
+## --- Sidebar with colored score boxes ---
+credit_color = get_score_color(selected_row["Credit Score"], kind="credit")
+risk_color = get_score_color(selected_row["Risk Score"], kind="risk")
+level_color = get_level_color(selected_row["Risk Level"])
+
 st.sidebar.markdown("---")
-st.sidebar.markdown("### Vendor Scores")
-st.sidebar.metric("Credit Score", selected_row["Credit Score"])
-st.sidebar.metric("Risk Score", selected_row["Risk Score"])
-st.sidebar.metric("Risk Level", selected_row["Risk Level"])
+
+#  Uncolored heading
+st.sidebar.markdown("<h4 style='font-size:20px; font-weight:700;'> Vendor Scores</h4>", unsafe_allow_html=True)
+
+#  Box for Credit Score
+st.sidebar.markdown(f"""
+<div style='background-color:#000000; padding:10px 12px; border-radius:10px; margin-bottom:8px;'>
+  <span style='font-size:14px;'>Credit Score:</span><br>
+  <span style='color:{credit_color}; font-size:18px; font-weight:bold;'>{selected_row["Credit Score"]}</span>
+</div>
+""", unsafe_allow_html=True)
+
+# Box for Risk Score
+st.sidebar.markdown(f"""
+<div style='background-color:#000000; padding:10px 12px; border-radius:10px; margin-bottom:8px;'>
+  <span style='font-size:14px;'>Risk Score:</span><br>
+  <span style='color:{risk_color}; font-size:18px; font-weight:bold;'>{selected_row["Risk Score"]}</span>
+</div>
+""", unsafe_allow_html=True)
+
+#  Box for Risk Level
+st.sidebar.markdown(f"""
+<div style='background-color:#000000; padding:10px 12px; border-radius:10px; margin-bottom:8px;'>
+  <span style='font-size:14px;'>Risk Level:</span><br>
+  <span style='color:{level_color}; font-size:18px; font-weight:bold;'>{selected_row["Risk Level"]}</span>
+</div>
+""", unsafe_allow_html=True)
 
 # --- CSV Download for Selected Vendor ---
 vendor_csv = pd.DataFrame([selected_row]).to_csv(index=False).encode("utf-8")
