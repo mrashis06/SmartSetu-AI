@@ -61,8 +61,6 @@ st.markdown("""
     <br><br>
     Our mission is to revolutionize how financial inclusion is achieved by providing smart, data-driven credit assessment and risk analysis — helping vendors unlock easier access to loans and grow their businesses sustainably.
     <br><br>
-    Through intuitive dashboards, accurate loan eligibility predictions, and insightful visualizations, we aim to bridge the gap between informal vendors and formal financial systems.
-    <br><br>
     Join us on this journey to create a smarter, fairer lending ecosystem — where every hardworking vendor gets the support they deserve.
     <br><br>
     <ul style='text-align: left; display: inline-block; list-style: none; padding: 0; font-size: 18px;'>
