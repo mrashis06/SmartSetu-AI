@@ -38,8 +38,6 @@ st.markdown("<br>", unsafe_allow_html=True)
 # --- Data Load ---
 SHEET_KEY = "1ccQAGRSCcJbJijorbBzSwU-wx60Ftf-2lzayKzCZQRw"
 df = fetch_vendor_data(SHEET_KEY)
-# 🔍 DEBUG: Show column names on Render
-st.write("Columns Render sees:", df.columns.tolist())
 
 if "Vendor Code" not in df.columns:
     st.error("'Vendor Code' column missing in Google Sheet.")
