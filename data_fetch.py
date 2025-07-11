@@ -4,7 +4,6 @@ import gspread
 import pandas as pd
 from google.oauth2.service_account import Credentials
 
-# --- Google API Scopes ---
 SCOPES = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive"
@@ -12,17 +11,17 @@ SCOPES = [
 
 def authorize_google_sheet():
     try:
-        # --- Try Render first: Read from environment variable
-        creds_json_str = os.getenv("GOOGLE_CREDENTIALS_JSON")
+        creds_info = os.getenv("GOOGLE_CREDENTIALS_JSON")
 
-        if creds_json_str:
-            creds_dict = json.loads(creds_json_str.replace("\\n", "\n"))  # Fix escaped newlines
+        if creds_info:
+            # Render: Load from environment
+            creds = Credentials.from_service_account_info(json.loads(creds_info), scopes=SCOPES)
         else:
-            # --- Fallback to local credentials.json
+            # Local: Load from file
             with open("credentials.json", "r") as f:
-                creds_dict = json.load(f)
+                creds_json = json.load(f)
+            creds = Credentials.from_service_account_info(creds_json, scopes=SCOPES)
 
-        creds = Credentials.from_service_account_info(creds_dict, scopes=SCOPES)
         client = gspread.authorize(creds)
         return client
 
@@ -51,14 +50,3 @@ def fetch_vendor_data(sheet_key, worksheet_name="Form responses 1"):
     except Exception as e:
         print(" Error fetching data from Google Sheet:", e)
         return pd.DataFrame()
-
-# --- Local Testing Block ---
-if __name__ == "__main__":
-    SHEET_KEY = "1ccQAGRSCcJbJijorbBzSwU-wx60Ftf-2lzayKzCZQRw"
-    df = fetch_vendor_data(SHEET_KEY)
-
-    if df.empty:
-        print(" No data fetched.")
-    else:
-        print(" Vendor data fetched successfully:")
-        print(df.head())
