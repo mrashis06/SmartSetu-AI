@@ -1,11 +1,5 @@
 import streamlit as st
 from state_manager import AppState
-
-# --- Reset on app refresh ---
-if "app_initialized" not in st.session_state:
-    AppState.reset()
-    st.session_state["app_initialized"] = True
-
 from datetime import datetime
 import pandas as pd
 import sys
@@ -127,7 +121,10 @@ if submitted:
                 expense1, expense2, expense3,
                 supplier_verified,
                 consistency,
-                testimonials
+                testimonials,
+                credit_score,
+                risk_score,
+                risk_level
             ])
 
             AppState.set("submitted", True)
@@ -158,9 +155,11 @@ if submitted:
 
             st.balloons()
 
-            st.markdown("<br>", unsafe_allow_html=True)
-            if st.button("📄 Go to Credit View"):
-                st.switch_page("pages/2_Credit_Report.py")
-
         except Exception as e:
             st.error(f"Failed to save data: {e}")
+
+if AppState.get("submitted"):  # Only show if data was saved
+    st.markdown("<br>", unsafe_allow_html=True)
+    if st.button("📄 Go to Credit View"):
+        st.switch_page("pages/2_Credit_Report.py")  # Use your exact file name here
+
