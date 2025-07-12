@@ -1,9 +1,5 @@
 import streamlit as st
 from state_manager import AppState
-# --- Reset on app refresh ---
-if "app_initialized" not in st.session_state:
-    AppState.reset()
-    st.session_state["app_initialized"] = True
 import pandas as pd
 from data_fetch import fetch_vendor_data
 from charts import (
