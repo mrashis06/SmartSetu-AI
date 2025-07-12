@@ -1,10 +1,5 @@
 import streamlit as st
 from state_manager import AppState
-# --- Reset on app refresh ---
-if "app_initialized" not in st.session_state:
-    AppState.reset()
-    st.session_state["app_initialized"] = True
-
 import pandas as pd
 import os
 import io
@@ -62,9 +57,10 @@ if code_input:
     testimonials = float(vendor["Customer Testimonial"])
     avg_income = sum(incomes) / 3
 
-    credit_score = calculate_credit_score(txns, consistency, supplier_verified, testimonials, txns)
-    risk_score = calculate_risk_score(expenses, avg_income)
-    risk_level = get_risk_level(risk_score)
+    credit_score = float(vendor.get("Credit Score", 0))
+    risk_score = float(vendor.get("Risk Score", 0))
+    risk_level = vendor.get("Risk Level", "Unknown")
+
 
     # --- Display Metrics ---
     credit_color = get_score_color(credit_score)
