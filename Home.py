@@ -33,7 +33,7 @@ st.markdown("""
   white-space: nowrap;
   overflow: hidden;
   width: min(90vw, 22ch);
-  animation: typing 4s steps(22) forwards;
+  animation: typing 2s steps(22) forwards;
   font-size: 36px;
   color: white;
   margin: 20px auto 40px auto;
