@@ -68,7 +68,7 @@ st.markdown("""
         <li>🏛 <strong>Discover Govt Schemes</strong> — Learn about financial aid and support available</li>
     </ul>
     <br><br>
-    <a href="/Manual_Entry" target="_self" style="
+    <a href="/Vendor_Registration" target="_self" style="
         display: inline-block;
         background-color: #4DC4D2;
         color: black;
