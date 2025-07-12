@@ -49,7 +49,7 @@ if "submitted" not in st.session_state:
 
 # --- Entry Form ---
 with st.form("vendor_form"):
-    st.subheader("#Enter Vendor Details")
+    st.subheader("Enter Vendor Details")
 
     name = st.text_input("Enter Your Name", value=st.session_state.get("name", ""))
     transactions = st.number_input("Monthly Transactions", min_value=0.0, value=st.session_state.get("transactions", 0.0))
