@@ -81,12 +81,6 @@ if code_input:
     """, unsafe_allow_html=True)
     st.markdown("<br>", unsafe_allow_html=True)
 
-    # --- Refresh Button Below Metrics ---
-    if st.button("🔄 Refresh"):
-        AppState.reset()
-        st.session_state["app_initialized"] = False
-        st.rerun()
-
     # --- Loan Eligibility ---
     loan_amt, interest = determine_loan_offer(credit_score)
     if loan_amt > 0:
