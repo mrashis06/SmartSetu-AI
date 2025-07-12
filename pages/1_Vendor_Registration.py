@@ -30,7 +30,15 @@ def generate_unique_vendor_code(name, worksheet):
 
 # --- Worksheet Access ---
 def get_worksheet():
-    creds = Credentials.from_service_account_file("credentials.json", scopes=SCOPES)
+    creds_info = os.getenv("GOOGLE_CREDENTIALS_JSON")
+
+    if creds_info:
+        creds = Credentials.from_service_account_info(json.loads(creds_info), scopes=SCOPES)
+    else:
+        with open("credentials.json", "r") as f:
+            creds_json = json.load(f)
+        creds = Credentials.from_service_account_info(creds_json, scopes=SCOPES)
+
     client = gspread.authorize(creds)
     return client.open_by_key(SHEET_KEY).sheet1
 
