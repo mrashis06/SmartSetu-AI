@@ -1,6 +1,10 @@
-# credit_predictor.py
-
 import streamlit as st
+from state_manager import AppState
+# --- Reset on app refresh ---
+if "app_initialized" not in st.session_state:
+    AppState.reset()
+    st.session_state["app_initialized"] = True
+
 import pandas as pd
 import os
 import io
@@ -19,20 +23,8 @@ with open("assets/style.css") as f:
 with open("templates/header.html") as f:
     st.markdown(f.read(), unsafe_allow_html=True)
 
-# --- Session state for vendor code ---
-if "vendor_code_input" not in st.session_state:
-    st.session_state.vendor_code_input = ""
-
-# --- Header with Refresh Button ---
-col1, col2 = st.columns([8, 1])
-with col1:
-    st.markdown("## Vendor Credit Lookup")
-with col2:
-    if st.button(" Refresh", key="refresh_button_top"):
-        st.session_state.vendor_code_input = ""
-        st.rerun()
-
-
+# --- Header ---
+st.markdown("##  Vendor Credit Lookup")
 st.markdown("<br>", unsafe_allow_html=True)
 
 # --- Data Load ---
@@ -43,16 +35,16 @@ if "Vendor Code" not in df.columns:
     st.error("'Vendor Code' column missing in Google Sheet.")
     st.stop()
 
-# --- Vendor Code Input ---
-code_input = st.text_input("Enter your Vendor Code:", value=st.session_state.vendor_code_input)
-st.session_state.vendor_code_input = code_input  # Update session
+# --- Vendor Code Input (Persistent) ---
+code_input = st.text_input("Enter your Vendor Code:", value=AppState.get("vendor_code"))
+AppState.set("vendor_code", code_input)
+if st.button("Refresh"):
+    AppState.reset()
+    st.session_state["app_initialized"] = False
+    st.rerun()
 
 # --- Lookup Validation ---
 if code_input:
-    if "Vendor Code" not in df.columns:
-        st.error(" 'Vendor Code' column missing in Google Sheet.")
-        st.stop()
-
     row = df[df["Vendor Code"] == code_input.upper()]
     if row.empty:
         st.error(" Invalid Vendor Code. Please try again.")
@@ -81,12 +73,19 @@ if code_input:
 
     st.markdown(f"###  Report for: `{name}`")
     st.markdown(f"""
-    <div style='background-color:#000000; padding:16px; border-radius:12px;'>
-        <p style='color:white;'>Credit Score: <span style='color:{credit_color}'><b>{credit_score}</b></span></p>
-        <p style='color:white;'>Risk Score: <span style='color:{risk_color}'><b>{risk_score}</b></span></p>
-        <p style='color:white;'>Risk Level: <span style='color:{level_color}'><b>{risk_level}</b></span></p>
+    <div style='background-color:#000000 !important; padding:16px; border-radius:12px;'>
+        <p style='color:white !important;'>Credit Score: <span style='color:{credit_color}; font-weight:bold;'>{credit_score}</span></p>
+        <p style='color:white !important;'>Risk Score: <span style='color:{risk_color}; font-weight:bold;'>{risk_score}</span></p>
+        <p style='color:white !important;'>Risk Level: <span style='color:{level_color}; font-weight:bold;'>{risk_level}</span></p>
     </div>
     """, unsafe_allow_html=True)
+    st.markdown("<br>", unsafe_allow_html=True)
+
+    # --- Refresh Button Below Metrics ---
+    if st.button("🔄 Refresh"):
+        AppState.reset()
+        st.session_state["app_initialized"] = False
+        st.rerun()
 
     # --- Loan Eligibility ---
     loan_amt, interest = determine_loan_offer(credit_score)
@@ -138,3 +137,8 @@ if code_input:
         file_name=f"{name}_CreditReport.pdf",
         mime="application/pdf"
     )
+
+    st.markdown("<br>", unsafe_allow_html=True)
+
+    if st.button("📊 Go to Charts"):
+        st.switch_page("pages/3_Visual_Insights.py")
